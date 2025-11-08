@@ -1,0 +1,631 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Yashveer Singh — Portfolio </title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <style>
+    :root{
+      /* Dark theme variables (used when body NOT having .light) */
+      --bg: #070312;
+      --panel: rgba(255,255,255,0.04);
+      --card: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+      --muted: #9aa7c7;
+      --accentA: #8b5cf6;
+      --accentB: #06b6d4;
+      --glow: 0 8px 40px rgba(139,92,246,0.12);
+      --glass: rgba(255,255,255,0.03);
+      --text-main: #e6eef8;
+      --link: #60a5fa;
+    }
+
+    /* Light theme override — soft grayish white background chosen by you */
+    .light {
+      --bg: #f4f6fa;          /* chosen soft grayish white */
+      --panel: #ffffff;
+      --card: #ffffff;
+      --muted: #334155;      /* deep gray-blue for readable muted text */
+      --accentA: #7c3aed;
+      --accentB: #0ea5e9;
+      --glow: 0 6px 26px rgba(124,58,237,0.08);
+      --glass: rgba(255,255,255,0.95);
+      --text-main: #1e1b4b;  /* deep navy for main text in light mode */
+      --link: #0b84d6;
+    }
+
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:'Poppins',sans-serif;
+      background:var(--bg);
+      color:var(--text-main);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      transition: background .35s ease, color .35s ease;
+    }
+
+    /* header */
+    header{
+      backdrop-filter: blur(6px);
+      background: linear-gradient(90deg, rgba(139,92,246,0.12), rgba(6,182,212,0.08));
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+    header .brand {
+      display:flex; gap:.75rem; align-items:center;
+    }
+
+    /* hero */
+    .hero-bg {
+      background:
+        radial-gradient(800px 300px at 10% 20%, rgba(139,92,246,0.06), transparent),
+        radial-gradient(600px 220px at 90% 70%, rgba(6,182,212,0.04), transparent);
+    }
+
+    /* glass card */
+    .glass-card {
+      background: var(--glass);
+      border-radius: 14px;
+      padding: 1.15rem;
+      box-shadow: var(--glow);
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .section-title {
+      display:inline-block;
+      font-weight:700;
+      font-size:1.15rem;
+      position:relative;
+      color: var(--text-main);
+    }
+    .section-title::after {
+      content: "";
+      position: absolute;
+      left:0; bottom:-8px;
+      width:0; height:4px;
+      background: linear-gradient(90deg, var(--accentB), var(--accentA));
+      transition: width .36s ease;
+      border-radius:4px;
+    }
+    .section-title:hover::after{ width:100%; }
+
+    /* horizontal carousel */
+    .hcarousel {
+      display:flex;
+      gap:1rem;
+      overflow-x:auto;
+      padding-bottom:8px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    .hcarousel::-webkit-scrollbar { height:8px; }
+    .hcarousel::-webkit-scrollbar-thumb{ background: linear-gradient(90deg,var(--accentB),var(--accentA)); border-radius:999px; }
+
+    .hcard {
+      min-width:320px;
+      flex:0 0 auto;
+      scroll-snap-align:start;
+      border-radius:12px;
+      overflow:hidden;
+      background: var(--card);
+      border:1px solid rgba(255,255,255,0.03);
+    }
+    .hcard-img { width:100%; height:190px; object-fit:cover; display:block; }
+
+    /* modal */
+    .modal {
+      position:fixed; inset:0; z-index:90;
+      background: rgba(2,6,23,0.85);
+      display:none; align-items:center; justify-content:center; padding:1rem;
+    }
+    .modal.open { display:flex; }
+    .modal img { max-width:96%; max-height:85vh; border-radius:10px; box-shadow:0 30px 80px rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.04); }
+
+    /* buttons */
+    .btn-primary {
+      background: linear-gradient(90deg,var(--accentB),var(--accentA));
+      color: white; padding: .6rem .95rem; border-radius:10px; font-weight:600;
+      box-shadow: var(--glow);
+    }
+    .btn-ghost {
+      background: transparent; border:1px solid rgba(255,255,255,0.06);
+      padding:.5rem .85rem; border-radius:8px; color: var(--text-main);
+    }
+    .arrow-btn {
+      background: rgba(255,255,255,0.06); padding:6px 10px; border-radius:999px; color: inherit;
+    }
+
+    /* hero typing */
+    .typewriter { display:inline-block; overflow:hidden; white-space:nowrap; border-right:2px solid rgba(255,255,255,0.5); width:0; animation: typing 3.2s steps(28) .6s forwards, blink .9s step-end infinite; }
+    @keyframes typing { to { width:100%; } } @keyframes blink { 50% { border-color: transparent; } }
+
+    /* contact card */
+    .contact-card { border-radius:12px; padding:1.25rem; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.03); box-shadow:0 12px 40px rgba(99,102,241,0.06); }
+
+    @media (max-width:768px) {
+      .hcard { min-width:260px; }
+      header .nav { display:none; }
+    }
+
+  </style>
+</head>
+
+<body class="light"> <!-- defaulting to light theme (soft grayish white) per your choice -->
+
+  <!-- HEADER -->
+  <header class="sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-5 py-3 flex items-center justify-between">
+      <div class="brand">
+        <div style="width:48px;height:48px;border-radius:10px;background:linear-gradient(180deg,var(--accentA),var(--accentB));display:flex;align-items:center;justify-content:center;font-weight:700;color:white">YS</div>
+        <div>
+          <div style="color:var(--text-main);font-weight:700">Yashveer Singh</div>
+          <div style="color:var(--muted);font-size:12px">BCA • Tech Enthusiast</div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <nav class="nav hidden md:flex gap-5 text-sm" aria-label="Primary">
+          <a href="#about" style="color:var(--text-main);">About</a>
+          <a href="#projects" style="color:var(--text-main);">Projects</a>
+          <a href="#certifications" style="color:var(--text-main);">Certifications</a>
+          <a href="#education" style="color:var(--text-main);">Education</a>
+          <a href="#contact" style="color:var(--text-main);">Contact</a>
+        </nav>
+
+        <a href="resume.pdf" target="_blank" class="btn-primary">Download Resume</a>
+        <button id="themeToggle" class="btn-ghost" title="Toggle theme">🌤️</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero-bg text-center py-20">
+    <div class="max-w-4xl mx-auto px-5">
+      <img src="images/profile.jpg" alt="profile" class="mx-auto w-36 h-36 rounded-full border-4 border-white/10 shadow-xl mb-5">
+      <h1 class="text-4xl md:text-5xl font-extrabold mb-2" style="color:var(--text-main)">Hi, I'm <span style="background:linear-gradient(90deg,var(--accentB),var(--accentA)); -webkit-background-clip:text; color:transparent;">Yashveer Singh</span></h1>
+      <p class="mt-3 text-lg" style="color:var(--muted)"><span class="typewriter">Tech Enthusiast • Cybersecurity & AI learner • Practical projects</span></p>
+      <div class="mt-6 flex items-center justify-center gap-4">
+        <a href="#projects" class="btn-primary">View Projects</a>
+        <a href="#contact" class="btn-ghost">Get in touch</a>
+      </div>
+    </div>
+  </section>
+
+  <main class="max-w-6xl mx-auto px-5 py-12">
+
+    <!-- ABOUT -->
+    <section id="about" class="mb-10" data-aos="fade-up">
+  <h2 class="section-title">About</h2>
+  <div class="mt-4 glass-card" style="color:var(--muted)">
+    <p>
+      I’m a <strong>Bachelor of Computer Applications (BCA)</strong> student at 
+      <strong>Greater Noida Institute of Management</strong>, passionate about technology, innovation, and continuous learning.  
+      My academic journey has helped me build a strong foundation in programming, networking, and real-world project development.
+    </p>
+
+    <p class="mt-3">
+      I enjoy creating projects that solve practical problems while exploring areas like 
+      <strong>Cybersecurity</strong>, <strong>Artificial Intelligence</strong>, and <strong>Web Development</strong>.
+      Through multiple internships and certifications from reputed organizations like 
+      Cisco, IBM, Infosys, and TCS, I’ve gained valuable hands-on experience in designing, securing, 
+      and managing digital systems.
+    </p>
+
+    <p class="mt-3">
+      I believe in learning by doing — experimenting with code, improving my technical depth, and developing skills 
+      that align with future technologies. I’m currently seeking opportunities where I can contribute, grow, 
+      and turn innovative ideas into impactful solutions.
+    </p>
+  </div>
+</section>
+
+
+    <!-- SKILLS -->
+    <section id="skills" class="mb-10" data-aos="fade-up">
+      <h2 class="section-title">Skills</h2>
+      <div class="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="glass-card text-center py-6">Python</div>
+        <div class="glass-card text-center py-6">HTML / CSS / JS</div>
+        <div class="glass-card text-center py-6">PHP</div>
+        <div class="glass-card text-center py-6">Git & GitHub</div>
+        <div class="glass-card text-center py-6">Networking</div>
+        <div class="glass-card text-center py-6">Canva</div>
+        <div class="glass-card text-center py-6">Problem Solving</div>
+      </div>
+    </section>
+
+    <!-- INTERNSHIPS -->
+    <section id="internships" class="mb-12" data-aos="fade-up">
+      <h2 class="section-title">Internships</h2>
+      <div class="mt-4 space-y-6 border-l-4 border-[var(--accentB)] pl-6">
+        <div>
+          <h3 class="font-semibold" style="color:var(--text-main)">Python Development Intern — Cognifyz</h3>
+          <p style="color:var(--muted)">Jul–Aug 2025 • Remote</p>
+          <p style="color:var(--muted)">Worked on Python tasks: file IO, algorithms, small utilities and automation scripts.</p>
+          <button onclick="openModal('cert-cognifyz-intern.jpg')" class="mt-2 btn-ghost">View Certificate</button>
+        </div>
+
+        <div>
+          <h3 class="font-semibold" style="color:var(--text-main)">Python Development Intern — CodSoft</h3>
+          <p style="color:var(--muted)">Jul–Aug 2025 • Remote</p>
+          <p style="color:var(--muted)">Built To-Do, Password Generator and Contact Book — emphasis on clean, maintainable code.</p>
+          <button onclick="openModal('cert-codsoft-intern.jpg')" class="mt-2 btn-ghost">View Certificate</button>
+        </div>
+
+        <div>
+          <h3 class="font-semibold" style="color:var(--text-main)">Cybersecurity Intern — NIIT Foundation</h3>
+          <p style="color:var(--muted)">Jun–Jul 2025 • Remote</p>
+          <p style="color:var(--muted)">Packet Tracer labs, secure Wi-Fi configuration, network hardening.</p>
+          <button onclick="openModal('cert-niit-intern.jpg')" class="mt-2 btn-ghost">View Certificate</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="mb-12" data-aos="fade-up">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="section-title">Projects</h2>
+        <div class="flex items-center gap-2">
+          <button id="proj-prev" class="arrow-btn" aria-label="previous project">◀</button>
+          <button id="proj-next" class="arrow-btn" aria-label="next project">▶</button>
+        </div>
+      </div>
+
+      <div id="projectsCarousel" class="hcarousel">
+        <!-- QuickBite -->
+        <article class="hcard">
+          <img src="images/proj-quickbite.jpg" class="hcard-img" alt="QuickBite">
+          <div class="p-4">
+            <h3 class="font-semibold" style="color:var(--text-main)">QuickBite — Online Food Ordering</h3>
+            <p style="color:var(--muted); margin-top:.5rem">Multi-page responsive ordering system with PHP backend handling cart & sessions.</p>
+            <div class="mt-3 flex gap-2">
+              <a href="https://github.com/Yashveer005/QuickBite_Project" target="_blank" class="btn-ghost">View Code</a>
+              <button onclick="openModal('proj-quickbite.jpg')" class="btn-ghost">Preview</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Secure Wi-Fi -->
+        <article class="hcard">
+          <img src="images/proj-securewifi.jpg" class="hcard-img" alt="Secure WiFi">
+          <div class="p-4">
+            <h3 class="font-semibold" style="color:var(--text-main)">Secure Wi-Fi Network</h3>
+            <p style="color:var(--muted); margin-top:.5rem">Topology design, WPA2 configuration, MAC filtering and documentation with Packet Tracer.</p>
+            <div class="mt-3 flex gap-2">
+              <a href="https://github.com/Yashveer005/Secure-WiFi-Project" target="_blank" class="btn-ghost">View Code</a>
+              <button onclick="openModal('proj-securewifi.jpg')" class="btn-ghost">Preview</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- CodSoft -->
+        <article class="hcard">
+          <img src="images/proj-codsoft.jpg" class="hcard-img" alt="CodSoft">
+          <div class="p-4">
+            <h3 class="font-semibold" style="color:var(--text-main)">CodSoft — Python Mini Apps</h3>
+            <p style="color:var(--muted); margin-top:.5rem">To-Do app, Password Generator and Contact Book — maintainable code and tests.</p>
+            <div class="mt-3 flex gap-2">
+              <a href="https://github.com/Yashveer005/CODSOFT" target="_blank" class="btn-ghost">View Code</a>
+              <button onclick="openModal('proj-codsoft.jpg')" class="btn-ghost">Preview</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Cognifyz -->
+        <article class="hcard">
+          <img src="images/proj-cognifyz.jpg" class="hcard-img" alt="Cognifyz">
+          <div class="p-4">
+            <h3 class="font-semibold" style="color:var(--text-main)">Cognifyz — Python Tasks</h3>
+            <p style="color:var(--muted); margin-top:.5rem">String manipulations, calculators, file tasks and logic exercises.</p>
+            <div class="mt-3 flex gap-2">
+              <a href="https://github.com/Yashveer005/Cognifyz_Python_Internship" target="_blank" class="btn-ghost">View Code</a>
+              <button onclick="openModal('proj-cognifyz.jpg')" class="btn-ghost">Preview</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- CERTIFICATIONS -->
+    <section id="certifications" class="mb-12" data-aos="fade-up">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="section-title">Certifications & Achievements</h2>
+        <div class="flex items-center gap-2">
+          <button id="cert-prev" class="arrow-btn">◀</button>
+          <button id="cert-next" class="arrow-btn">▶</button>
+        </div>
+      </div>
+
+      <div id="certsCarousel" class="hcarousel">
+        <!-- each card shows image + title -->
+        <div class="hcard" style="min-width:360px">
+          <img src="images/cert-be10x.jpg" class="hcard-img" alt="Be10x" onclick="openModal('cert-be10x.jpg')">
+          <div class="p-3"><div class="font-semibold" style="color:var(--text-main)">Be10x — AI Tools & ChatGPT Workshop</div></div>
+        </div>
+
+        <div class="hcard" style="min-width:360px">
+          <img src="images/cert-accenture.jpg" class="hcard-img" alt="Accenture" onclick="openModal('cert-accenture.jpg')">
+          <div class="p-3"><div class="font-semibold" style="color:var(--text-main)">Accenture UK — Job Simulation</div></div>
+        </div>
+
+        <div class="hcard" style="min-width:360px">
+          <img src="images/cert-deloitte.jpg" class="hcard-img" alt="Deloitte" onclick="openModal('cert-deloitte.jpg')">
+          <div class="p-3"><div class="font-semibold" style="color:var(--text-main)">Deloitte — Cyber Job Simulation</div></div>
+        </div>
+
+        <div class="hcard" style="min-width:360px">
+          <img src="images/cert-upgrad.jpg" class="hcard-img" alt="upgrad" onclick="openModal('cert-upgrad.jpg')">
+          <div class="p-3"><div class="font-semibold" style="color:var(--text-main)">upGrad — Generative AI Foundations</div></div>
+        </div>
+
+        <div class="hcard" style="min-width:360px">
+          <img src="images/cert-ibm-cyber.jpg" class="hcard-img" alt="IBM Cyber" onclick="openModal('cert-ibm-cyber.jpg')">
+          <div class="p-3"><div class="font-semibold" style="color:var(--text-main)">IBM — Getting Started with Cybersecurity</div></div>
+        </div>
+
+        <div class="hcard" style="min-width:360px">
+          <img src="images/cert-tata.jpg" class="hcard-img" alt="Tata" onclick="openModal('cert-tata.jpg')">
+          <div class="p-3"><div class="font-semibold" style="color:var(--text-main)">Tata (Forage) — Cybersecurity Analyst</div></div>
+        </div>
+
+        <div class="hcard" style="min-width:360px">
+          <img src="images/cert-aws.jpg" class="hcard-img" alt="Infosys AWS" onclick="openModal('cert-aws.jpg')">
+          <div class="p-3"><div class="font-semibold" style="color:var(--text-main)">Infosys — AWS / Cloud</div></div>
+        </div>
+
+        <div class="hcard" style="min-width:360px">
+          <img src="images/cert-ibm-ai.jpg" class="hcard-img" alt="IBM AI" onclick="openModal('cert-ibm-ai.jpg')">
+          <div class="p-3"><div class="font-semibold" style="color:var(--text-main)">IBM — AI Fundamentals</div></div>
+        </div>
+
+        <div class="hcard" style="min-width:360px">
+          <img src="images/cert-infosys-cyber.jpg" class="hcard-img" alt="Infosys Cyber" onclick="openModal('cert-infosys-cyber.jpg')">
+          <div class="p-3"><div class="font-semibold" style="color:var(--text-main)">Infosys — Cybersecurity</div></div>
+        </div>
+
+        <div class="hcard" style="min-width:360px">
+          <img src="images/cert-cisco-analyst.jpg" class="hcard-img" alt="Cisco Analyst" onclick="openModal('cert-cisco-analyst.jpg')">
+          <div class="p-3"><div class="font-semibold" style="color:var(--text-main)">Cisco — Junior Cybersecurity Analyst</div></div>
+        </div>
+
+        <div class="hcard" style="min-width:360px">
+          <img src="images/cert-cisco-intro.jpg" class="hcard-img" alt="Cisco Intro" onclick="openModal('cert-cisco-intro.jpg')">
+          <div class="p-3"><div class="font-semibold" style="color:var(--text-main)">Cisco — Introduction to Cybersecurity</div></div>
+        </div>
+
+        <div class="hcard" style="min-width:360px">
+          <img src="images/cert-tcs.jpg" class="hcard-img" alt="TCS" onclick="openModal('cert-tcs.jpg')">
+          <div class="p-3"><div class="font-semibold" style="color:var(--text-main)">TCS iON — Career Edge</div></div>
+        </div>
+
+        <div class="hcard" style="min-width:360px">
+          <img src="images/cert-cisco-reports.jpg" class="hcard-img" alt="Cisco Reports" onclick="openModal('cert-cisco-reports.jpg')">
+          <div class="p-3"><div class="font-semibold" style="color:var(--text-main)">Cisco — Creating Compelling Reports</div></div>
+        </div>
+
+        <div class="hcard" style="min-width:360px">
+          <img src="images/cert-niit.jpg" class="hcard-img" alt="NIIT" onclick="openModal('cert-niit.jpg')">
+          <div class="p-3"><div class="font-semibold" style="color:var(--text-main)">NIIT Foundation — Digital Productivity</div></div>
+        </div>
+
+        <div class="hcard" style="min-width:360px">
+          <img src="images/cert-opswat.jpg" class="hcard-img" alt="OPSWAT" onclick="openModal('cert-opswat.jpg')">
+          <div class="p-3"><div class="font-semibold" style="color:var(--text-main)">OPSWAT — Critical Infrastructure Protection</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education" class="mb-12" data-aos="fade-up">
+      <h2 class="section-title">Education</h2>
+      <div class="mt-4 space-y-5 border-l-4 border-[var(--accentB)] pl-6">
+        <div>
+          <h3 class="font-semibold" style="color:var(--text-main)">BCA — Greater Noida Institute of Management</h3>
+          <p style="color:var(--muted)" class="text-sm">2023 – 2026 (Ongoing)</p>
+        </div>
+        <div>
+          <h3 class="font-semibold" style="color:var(--text-main)">12th — Maharishi Vidya Mandir</h3>
+          <p style="color:var(--muted)" class="text-sm">Completed 2023</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="mb-12" data-aos="zoom-in">
+      <h2 class="section-title">Contact</h2>
+      <div class="mt-4 grid md:grid-cols-2 gap-6 items-center">
+        <!-- glowing info card -->
+        <div class="contact-card">
+          <h3 class="text-xl font-semibold" style="color:var(--text-main)">Let's collaborate</h3>
+          <p style="color:var(--muted)" class="mt-2">Open for internships, freelance projects, and collaborations. Send a short note — I'll reply ASAP.</p>
+
+          <div class="mt-4 flex flex-col gap-3">
+            <!-- LinkedIn -->
+            <a href="https://www.linkedin.com/in/yashveer-singh-7a0b32347" target="_blank" class="flex items-center gap-3">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M4.98 3.5C4.98 4.88 3.88 6 2.48 6 1.12 6 0 4.88 0 3.5 0 2.12 1.12 1 2.48 1 3.88 1 4.98 2.12 4.98 3.5zM.5 8h4v12h-4zM8.5 8h3.8v1.6h.1c.5-.9 1.7-1.8 3.5-1.8 3.7 0 4.4 2.4 4.4 5.5V20h-4v-5.2c0-1.2 0-2.8-1.7-2.8-1.7 0-2 1.3-2 2.6V20h-4z" fill="currentColor"/></svg>
+              <div>
+                <div style="color:var(--text-main);font-weight:600">LinkedIn</div>
+                <div style="color:var(--muted);font-size:13px">linkedin.com/in/yashveer-singh-7a0b32347</div>
+              </div>
+            </a>
+
+            <!-- GitHub -->
+            <a href="https://github.com/Yashveer005" target="_blank" class="flex items-center gap-3">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 .5C5.65.5.5 5.66.5 12.02c0 5.1 3.29 9.42 7.86 10.95.58.1.79-.25.79-.55 0-.27-.01-1.16-.02-2.1-3.2.7-3.87-1.54-3.87-1.54-.53-1.36-1.3-1.72-1.3-1.72-1.06-.72.08-.71.08-.71 1.16.08 1.77 1.2 1.77 1.2 1.04 1.78 2.73 1.27 3.4.97.11-.76.41-1.27.74-1.56-2.56-.29-5.26-1.28-5.26-5.68 0-1.25.44-2.27 1.16-3.07-.12-.29-.5-1.45.11-3.02 0 0 .95-.3 3.12 1.17a10.8 10.8 0 0 1 2.84-.38c.96 0 1.93.13 2.84.38 2.16-1.47 3.11-1.17 3.11-1.17.62 1.57.24 2.73.12 3.02.72.8 1.16 1.82 1.16 3.07 0 4.41-2.7 5.38-5.28 5.66.42.36.79 1.08.79 2.18 0 1.58-.02 2.85-.02 3.24 0 .3.21.66.8.54C20.71 21.43 24 17.1 24 12.02 24 5.66 18.35.5 12 .5z" fill="currentColor"/></svg>
+              <div>
+                <div style="color:var(--text-main);font-weight:600">GitHub</div>
+                <div style="color:var(--muted);font-size:13px">github.com/Yashveer005</div>
+              </div>
+            </a>
+
+            <!-- Instagram -->
+            <a href="https://www.instagram.com/yashveer_singh_05?igsh=MTdnMGl3Zjg1aWY5MA==" target="_blank" class="flex items-center gap-3">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm10 2c1.66 0 3 1.34 3 3v10c0 1.66-1.34 3-3 3H7c-1.66 0-3-1.34-3-3V7c0-1.66 1.34-3 3-3h10zM12 7a5 5 0 1 0 .001 9.999A5 5 0 0 0 12 7zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6zm4.8-3.6a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4z" fill="currentColor"/></svg>
+              <div>
+                <div style="color:var(--text-main);font-weight:600">Instagram</div>
+                <div style="color:var(--muted);font-size:13px">@yashveer_singh_05</div>
+              </div>
+            </a>
+          </div>
+
+          <div class="mt-5 flex gap-3">
+            <a href="mailto:yashveersingh0785@gmail.com?subject=Portfolio%20Inquiry" class="btn-primary">Email Me</a>
+            <a href="mailto:yashveersingh0785@gmail.com?subject=Resume%20Request" class="btn-ghost">Request Resume</a>
+          </div>
+        </div>
+
+        <!-- contact form (mailto) -->
+        <div class="glass-card">
+          <form id="contactForm" onsubmit="handleContact(event)" class="space-y-3">
+            <label class="block text-sm" style="color:var(--muted)">Your Name</label>
+            <input id="cname" required class="w-full p-3 rounded bg-transparent border border-white/6" placeholder="e.g., Rohit Sharma">
+
+            <label class="block text-sm" style="color:var(--muted)">Your Email</label>
+            <input id="cemail" type="email" required class="w-full p-3 rounded bg-transparent border border-white/6" placeholder="example@mail.com">
+
+            <label class="block text-sm" style="color:var(--muted)">Message</label>
+            <textarea id="cmsg" rows="4" required class="w-full p-3 rounded bg-transparent border border-white/6" placeholder="Hi Yashveer — I would like to discuss..."></textarea>
+
+            <div class="flex items-center gap-3">
+              <button type="submit" class="btn-primary">Send Email</button>
+              <button type="button" onclick="copyEmail()" class="btn-ghost">Copy Email</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="py-6" style="background: linear-gradient(90deg,var(--accentB),var(--accentA));">
+    <div class="max-w-6xl mx-auto px-5 text-white text-center">
+      <div class="flex items-center justify-center gap-6">
+        <a href="https://www.linkedin.com/in/yashveer-singh-7a0b32347" target="_blank" class="flex items-center gap-2 hover:underline">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M4.98 3.5C4.98 4.88 3.88 6 2.48 6 1.12 6 0 4.88 0 3.5 0 2.12 1.12 1 2.48 1 3.88 1 4.98 2.12 4.98 3.5zM.5 8h4v12h-4zM8.5 8h3.8v1.6h.1c.5-.9 1.7-1.8 3.5-1.8 3.7 0 4.4 2.4 4.4 5.5V20h-4v-5.2c0-1.2 0-2.8-1.7-2.8-1.7 0-2 1.3-2 2.6V20h-4z" /></svg>
+          <span class="font-medium">LinkedIn</span>
+        </a>
+
+        <a href="https://github.com/Yashveer005" target="_blank" class="flex items-center gap-2 hover:underline">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 .5C5.65.5.5 5.66.5 12.02c0 5.1 3.29 9.42 7.86 10.95.58.1.79-.25.79-.55 0-.27-.01-1.16-.02-2.1-3.2.7-3.87-1.54-3.87-1.54-.53-1.36-1.3-1.72-1.3-1.72-1.06-.72.08-.71.08-.71 1.16.08 1.77 1.2 1.77 1.2 1.04 1.78 2.73 1.27 3.4.97.11-.76.41-1.27.74-1.56-2.56-.29-5.26-1.28-5.26-5.68 0-1.25.44-2.27 1.16-3.07-.12-.29-.5-1.45.11-3.02 0 0 .95-.3 3.12 1.17a10.8 10.8 0 0 1 2.84-.38c.96 0 1.93.13 2.84.38 2.16-1.47 3.11-1.17 3.11-1.17.62 1.57.24 2.73.12 3.02.72.8 1.16 1.82 1.16 3.07 0 4.41-2.7 5.38-5.28 5.66.42.36.79 1.08.79 2.18 0 1.58-.02 2.85-.02 3.24 0 .3.21.66.8.54C20.71 21.43 24 17.1 24 12.02 24 5.66 18.35.5 12 .5z" /></svg>
+          <span class="font-medium">GitHub</span>
+        </a>
+
+        <a href="https://www.instagram.com/yashveer_singh_05?igsh=MTdnMGl3Zjg1aWY5MA==" target="_blank" class="flex items-center gap-2 hover:underline">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm10 2c1.66 0 3 1.34 3 3v10c0 1.66-1.34 3-3 3H7c-1.66 0-3-1.34-3-3V7c0-1.66 1.34-3 3-3h10zM12 7a5 5 0 1 0 .001 9.999A5 5 0 0 0 12 7zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6zm4.8-3.6a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4z" /></svg>
+          <span class="font-medium">Instagram</span>
+        </a>
+      </div>
+
+      <div class="mt-4 text-sm text-white/90">© <span id="year"></span> Yashveer Singh — All Rights Reserved</div>
+    </div>
+  </footer>
+
+  <!-- MODAL -->
+  <div id="modal" class="modal" role="dialog" aria-hidden="true">
+    <button id="modalClose" class="absolute top-6 right-6 text-white text-3xl">×</button>
+    <img id="modalImage" src="" alt="Preview">
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 700, once: true });
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // THEME: light by default (soft grayish white) but persistent with localStorage
+    const themeBtn = document.getElementById('themeToggle');
+    const stored = localStorage.getItem('v7-theme');
+    if(stored === 'dark') document.body.classList.remove('light');
+    else document.body.classList.add('light'); // default light
+    function updateThemeBtn(){
+      themeBtn.textContent = document.body.classList.contains('light') ? '🌤️' : '🌙';
+    }
+    updateThemeBtn();
+    themeBtn.addEventListener('click', ()=>{
+      if(document.body.classList.contains('light')) {
+        document.body.classList.remove('light');
+        localStorage.setItem('v7-theme','dark');
+      } else {
+        document.body.classList.add('light');
+        localStorage.setItem('v7-theme','light');
+      }
+      updateThemeBtn();
+    });
+
+    // Modal preview
+    const modal = document.getElementById('modal'), modalImg = document.getElementById('modalImage'), modalClose = document.getElementById('modalClose');
+    window.openModal = (file) => {
+      modalImg.src = 'images/' + file;
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
+    };
+    function closeModal(){ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); modalImg.src = ''; document.body.style.overflow = ''; }
+    modalClose.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e)=>{ if(e.target === modal) closeModal(); });
+    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeModal(); });
+
+    // Carousel setup (auto scroll + arrows + drag + wheel)
+    function setupCarousel(id, prevBtn, nextBtn) {
+      const el = document.getElementById(id);
+      if(!el) return;
+      const prev = document.getElementById(prevBtn);
+      const next = document.getElementById(nextBtn);
+      let auto, dir = 1, speed = 1.2;
+
+      const start = () => {
+        stop();
+        auto = setInterval(()=> {
+          if(dir === 1 && el.scrollLeft + el.clientWidth >= el.scrollWidth - 2) dir = -1;
+          else if(dir === -1 && el.scrollLeft <= 0) dir = 1;
+          el.scrollLeft += dir * speed;
+        }, 15);
+      };
+      const stop = () => { if(auto) clearInterval(auto); };
+
+      el.addEventListener('mouseenter', stop);
+      el.addEventListener('mouseleave', start);
+      prev && prev.addEventListener('click', ()=> el.scrollBy({ left: -360, behavior:'smooth' }));
+      next && next.addEventListener('click', ()=> el.scrollBy({ left: 360, behavior:'smooth' }));
+
+      // wheel horizontal
+      el.addEventListener('wheel', (e) => {
+        if(Math.abs(e.deltaY) > Math.abs(e.deltaX)) { e.preventDefault(); el.scrollBy({ left: e.deltaY, behavior:'smooth' }); }
+      }, { passive: false });
+
+      // pointer drag
+      let isDown=false, startX, scrollLeft;
+      el.addEventListener('pointerdown', (e)=>{ isDown=true; startX = e.pageX - el.offsetLeft; scrollLeft = el.scrollLeft; stop(); el.setPointerCapture && el.setPointerCapture(e.pointerId); });
+      el.addEventListener('pointerup', (e)=>{ isDown=false; start(); el.releasePointerCapture && el.releasePointerCapture(e.pointerId); });
+      el.addEventListener('pointermove', (e)=>{ if(!isDown) return; e.preventDefault(); const x = e.pageX - el.offsetLeft; const walk = (x - startX); el.scrollLeft = scrollLeft - walk; });
+
+      start();
+    }
+
+    window.addEventListener('load', ()=> {
+      setupCarousel('projectsCarousel', 'proj-prev', 'proj-next');
+      setupCarousel('certsCarousel', 'cert-prev', 'cert-next');
+    });
+
+    // Contact form: mailto (no backend)
+    function handleContact(e){
+      e.preventDefault();
+      const name = document.getElementById('cname').value.trim();
+      const email = document.getElementById('cemail').value.trim();
+      const msg = document.getElementById('cmsg').value.trim();
+      if(!name || !email || !msg) return alert('Please fill all fields');
+      const subject = encodeURIComponent('Portfolio Inquiry from ' + name);
+      const body = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\n' + msg);
+      window.location.href = `mailto:yashveersingh0785@gmail.com?subject=${subject}&body=${body}`;
+    }
+    function copyEmail(){ navigator.clipboard?.writeText('yashveersingh0785@gmail.com'); alert('Email copied to clipboard'); }
+
+  </script>
+</body>
+</html>
