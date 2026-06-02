@@ -194,6 +194,7 @@
       <img src="images/profile.jpg" alt="profile" class="mx-auto w-36 h-36 rounded-full border-4 border-white/10 shadow-xl mb-5">
       <h1 class="text-4xl md:text-5xl font-extrabold mb-2" style="color:var(--text-main)">Hi, I'm <span style="background:linear-gradient(90deg,var(--accentB),var(--accentA)); background-clip:text; color:transparent;">Yashveer Singh</span></h1>
       <p class="mt-3 text-lg" style="color:var(--muted)"><span class="typewriter">Tech Enthusiast • Cybersecurity & AI learner • Practical projects</span></p>
+       <p class="hero-tag"> 🏆 Featured Project: CyberSentinel – Cyber Security Awareness Platform</p>
       <div class="mt-6 flex items-center justify-center gap-4">
         <a href="#projects" class="btn-primary">View Projects</a>
         <a href="#contact" class="btn-ghost">Get in touch</a>
@@ -235,14 +236,15 @@
       <h2 class="section-title">Skills</h2>
       <div class="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4">
         <div class="glass-card text-center py-6">Python</div>
+        <div class="glass-card text-center py-6">MS Office</div>
+        <div class="glass-card text-center py-6">Git & GitHub</div>
         <div class="glass-card text-center py-6">HTML / CSS / JS</div>
         <div class="glass-card text-center py-6">Cybersecurity Fundamentals</div>
-        <div class="glass-card text-center py-6">Git & GitHub</div>
         <div class="glass-card text-center py-6">Networking Protocols & Security</div>
-        <div class="glass-card text-center py-6">Windows & Linux OS</div>
+        <div class="glass-card text-center py-6">Windows & Linux(Kali Linux)OS</div>
         <div class="glass-card text-center py-6">SQL Fundamentals</div>
         <div class="glass-card text-center py-6">Problem Solving</div>
-        <div class="glass-card text-center py-6">MS Office</div>
+        <div class="glass-card text-center py-6">Tools & Labs</div>
       </div>
     </section>
 
@@ -284,6 +286,44 @@
       </div>
 
       <div id="projectsCarousel" class="hcarousel">
+        
+        <!-- CyberSentinel -->
+        <article class="hcard">
+          <img src="images/proj-cybersentinel.jpg" class="hcard-img" alt="CyberSentinel">
+          <div class="p-4">
+            <h3 class="font-semibold" style="color:var(--text-main)">
+              CyberSentinel — Cyber Security Awareness Platform
+            </h3>
+            
+            <p style="color:var(--muted); margin-top:.5rem">
+              An interactive cybersecurity awareness platform featuring security quizzes, password strength analysis, phishing URL
+              detection, user dashboard and gamified learning modules to improve cyber hygiene and digital safety skills.
+            </p>
+            <div class="mt-3 flex gap-2">
+              <a href="https://github.com/Yashveer005/CyberSentinel-CyberSecurity-Awareness-Platform"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-ghost">
+              View Code
+            </a>
+            <button onclick="openModal('proj-cybersentinel.jpg')" class="btn-ghost">Preview</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Secure Wi-Fi by CISCO-->
+        <article class="hcard">
+          <img src="images/proj-securewifi.jpg" class="hcard-img" alt="Secure WiFi">
+          <div class="p-4">
+            <h3 class="font-semibold" style="color:var(--text-main)">Secure Wi-Fi Network</h3>
+            <p style="color:var(--muted); margin-top:.5rem">Topology design, WPA2 configuration, MAC filtering and documentation with Cisco Packet Tracer.</p>
+            <div class="mt-3 flex gap-2">
+              <a href="https://github.com/Yashveer005/Secure-WiFi-Project" target="_blank" class="btn-ghost">View Code</a>
+              <button onclick="openModal('proj-securewifi.jpg')" class="btn-ghost">Preview</button>
+            </div>
+          </div>
+        </article>
+        
         <!-- QuickBite -->
         <article class="hcard">
           <img src="images/proj-quickbite.jpg" class="hcard-img" alt="QuickBite">
@@ -293,19 +333,6 @@
             <div class="mt-3 flex gap-2">
               <a href="https://github.com/Yashveer005/QuickBite_Project" target="_blank" class="btn-ghost">View Code</a>
               <button onclick="openModal('proj-quickbite.jpg')" class="btn-ghost">Preview</button>
-            </div>
-          </div>
-        </article>
-
-        <!-- Secure Wi-Fi -->
-        <article class="hcard">
-          <img src="images/proj-securewifi.jpg" class="hcard-img" alt="Secure WiFi">
-          <div class="p-4">
-            <h3 class="font-semibold" style="color:var(--text-main)">Secure Wi-Fi Network</h3>
-            <p style="color:var(--muted); margin-top:.5rem">Topology design, WPA2 configuration, MAC filtering and documentation with Packet Tracer.</p>
-            <div class="mt-3 flex gap-2">
-              <a href="https://github.com/Yashveer005/Secure-WiFi-Project" target="_blank" class="btn-ghost">View Code</a>
-              <button onclick="openModal('proj-securewifi.jpg')" class="btn-ghost">Preview</button>
             </div>
           </div>
         </article>
