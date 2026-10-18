@@ -2048,3 +2048,133 @@ h1 {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* MOBILE UI FIX — OVERRIDE */
+
+@media (max-width: 560px) {
+
+  /* Prevent horizontal overflow */
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  /* Header */
+  .nav-wrap {
+    width: 100%;
+    min-width: 0;
+    padding: 10px 12px;
+    gap: 8px;
+  }
+
+  .brand {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .brand-name {
+    font-size: 11px;
+  }
+
+  .nav-actions {
+    flex-shrink: 0;
+  }
+
+  /* Main sections */
+  .section-shell {
+    width: 100%;
+    max-width: 100%;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .section-heading {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  /* Featured projects: one full-width column */
+  .featured-grid,
+  .featured-projects,
+  .featured-project-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .featured-project {
+    width: 100%;
+    min-width: 0;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .featured-project > *,
+  .project-card,
+  .achievement-card,
+  .education-item {
+    min-width: 0;
+  }
+
+  /* Project cards */
+  .project-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .project-card {
+    width: 100%;
+    padding: 18px;
+  }
+
+  .project-card h3,
+  .project-card p {
+    overflow-wrap: anywhere;
+  }
+
+  /* Experience timeline */
+  .timeline {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .timeline-item {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .timeline-item > *,
+  .timeline-content,
+  .timeline-body {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  /* Intro cards */
+  .intro-strip {
+    width: auto;
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+
+  /* Contact and footer */
+  .contact-section {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .footer-inner {
+    width: 100%;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
