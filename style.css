@@ -2520,3 +2520,51 @@ body {
     min-width: 0;
   }
 }
+ 
+/* FIX FULL-PAGE MOBILE WIDTH */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+body {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  margin: 0;
+  overflow-x: clip;
+}
+
+.site-header,
+.nav-wrap,
+#main,
+.site-footer {
+  width: 100%;
+  max-width: 100%;
+}
+
+.ambient {
+  max-width: 100%;
+}
+
+@media (max-width: 800px) {
+  .section-shell {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .hero,
+  .intro-strip,
+  .section-block,
+  .contact-section {
+    max-width: 100%;
+  }
+}
