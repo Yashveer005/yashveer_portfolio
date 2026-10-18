@@ -2360,3 +2360,163 @@ h1 {
     white-space: nowrap;
   }
 }
+
+/* FINAL MOBILE LAYOUT FIX */
+
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  overflow-x: clip;
+}
+
+.site-header,
+.nav-wrap,
+#main,
+.section-shell,
+.site-footer {
+  width: 100%;
+  max-width: 100%;
+}
+
+@media (max-width: 560px) {
+
+  /* Compact header */
+  .nav-wrap {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 8px;
+    padding: 10px 12px;
+  }
+
+  .brand {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .nav-actions {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .resume-link {
+    display: inline-flex !important;
+    padding: 8px 9px;
+    font-size: 10px;
+  }
+
+  /* Show hamburger icon clearly */
+  #menuToggle {
+    display: flex !important;
+    flex: 0 0 40px;
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+    padding: 0;
+  }
+
+  #menuToggle span {
+    display: block !important;
+    width: 17px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--text);
+  }
+
+  /* Sections use full available width */
+  .section-shell {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  /* CTF: stack graphic above content */
+  .ctf-panel {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 14px;
+    padding: 20px;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .ctf-graphic {
+    width: 100%;
+    height: 150px;
+    min-width: 0;
+  }
+
+  .ctf-copy {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .ctf-copy h3 {
+    font-size: 22px;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+  }
+
+  .ctf-copy p {
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  .ctf-topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  /* Featured projects */
+  .featured-project-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .featured-project {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) !important;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .featured-art {
+    min-height: 150px;
+  }
+
+  .featured-copy {
+    min-width: 0;
+    padding: 18px;
+  }
+
+  /* Timeline content */
+  .timeline-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 15px;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .timeline-card > div {
+    min-width: 0;
+    width: 100%;
+  }
+
+  /* Certificate cards */
+  .cert-feature-grid,
+  .cert-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .cert-feature,
+  .cert-card {
+    width: 100%;
+    min-width: 0;
+  }
+}
