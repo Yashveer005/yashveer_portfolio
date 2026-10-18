@@ -152,25 +152,36 @@ a:focus-visible {
 }
 
 .brand-mark {
-  width: 43px;
-  height: 43px;
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
   border: 1px solid rgba(100, 231, 245, 0.48);
-  border-radius: 13px;
+  border-radius: 22px;
   display: grid;
   place-items: center;
+  font-family: "DM Mono", monospace;
   font-weight: 800;
-  font-size: 17px;
+  font-size: 25px;
+  letter-spacing: -2px;
+  line-height: 1;
+  color: var(--text-primary);
   background: linear-gradient(
     145deg,
     rgba(100, 231, 245, 0.14),
     rgba(167, 139, 250, 0.12)
   );
-  font-family: "DM Mono", monospace;
-  letter-spacing: -2px;
+  position: relative;
 }
 
-.brand-mark span {
-  color: var(--cyan);
+.brand-mark::after {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 4px;
+  background: var(--cyan);
+  bottom: -11px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .brand-name {
@@ -1845,8 +1856,9 @@ h1 {
   }
 
   .brand-mark {
-    width: 39px;
-    height: 39px;
+    width: 43px;
+    height: 43px;
+    font-size: 18px;
   }
 
   .brand-name {
