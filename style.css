@@ -2272,3 +2272,91 @@ h1 {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* FIX: CTF CARD MOBILE OVERFLOW */
+
+@media (max-width: 560px) {
+  .ctf-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .ctf-card,
+  .ctf-visual,
+  .ctf-content,
+  .ctf-card > *,
+  .ctf-grid > * {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .ctf-card {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 22px;
+    overflow: hidden;
+  }
+
+  .ctf-visual {
+    width: 100%;
+    min-height: 160px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .ctf-content {
+    width: 100%;
+    overflow-wrap: anywhere;
+  }
+
+  .ctf-content h3 {
+    font-size: 22px;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+  }
+
+  .ctf-content p {
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  .ctf-content .tag,
+  .ctf-content .chip,
+  .ctf-content span {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+
+  .cert-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .cert-card {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+/* SHOW RESUME ON MOBILE */
+
+@media (max-width: 1050px) {
+  .resume-link {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 560px) {
+  .nav-wrap {
+    gap: 7px;
+  }
+
+  .resume-link {
+    display: inline-flex !important;
+    padding: 8px 10px;
+    font-size: 10px;
+    white-space: nowrap;
+  }
+}
