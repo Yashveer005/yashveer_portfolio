@@ -2840,3 +2840,85 @@ svg {
 }
 
 /* END FINAL MOBILE FIX */
+
+/* FINAL FIX: CERTIFICATE MODAL ON MOBILE */
+
+.detail-modal {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  padding: 12px;
+  overflow-x: hidden;
+}
+
+.modal-shell {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 850px;
+  min-width: 0;
+  margin: auto;
+  overflow-x: hidden;
+}
+
+.modal-layout,
+.modal-layout > * {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.modal-layout img,
+.modal-layout picture,
+.modal-layout video {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+@media (max-width: 600px) {
+  .detail-modal {
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .modal-shell {
+    width: 100%;
+    max-width: 100%;
+    max-height: calc(100dvh - 20px);
+    padding: 16px;
+    margin: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .modal-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .modal-layout > * {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .modal-layout img {
+    width: 100%;
+    height: auto;
+    max-height: none;
+    object-fit: contain;
+  }
+
+  .modal-close {
+    position: sticky;
+    top: 0;
+    margin-left: auto;
+  }
+}
+
