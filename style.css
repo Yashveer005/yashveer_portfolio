@@ -2568,3 +2568,275 @@ body {
     max-width: 100%;
   }
 }
+
+/* =========================================
+   FINAL MOBILE RESPONSIVE FIX
+   Add this at the VERY END of style.css
+   ========================================= */
+
+/* 1. Prevent unwanted horizontal overflow */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+  scroll-behavior: smooth;
+}
+
+body {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  margin: 0;
+  overflow-x: clip;
+}
+
+main,
+header,
+footer,
+section,
+.site-header,
+.site-footer {
+  min-width: 0;
+  max-width: 100%;
+}
+
+img,
+video,
+canvas,
+svg {
+  max-width: 100%;
+}
+
+/* 2. Keep all main sections aligned */
+
+.section-shell {
+  width: 100%;
+  max-width: var(--max);
+  min-width: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section-block {
+  min-width: 0;
+}
+
+.hero,
+.intro-strip,
+.about-grid,
+.featured-project-grid,
+.project-grid,
+.timeline,
+.cert-feature-grid,
+.cert-grid,
+.achievement-grid,
+.education-grid,
+.contact-section {
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* 3. Fix header sizing */
+
+@media (max-width: 800px) {
+  .nav-wrap {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    flex-wrap: nowrap;
+  }
+
+  .brand {
+    flex: 0 1 auto;
+    min-width: 0;
+  }
+
+  .brand-name {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .menu-toggle {
+    flex-shrink: 0;
+  }
+
+  .nav-actions {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+  }
+
+  .primary-nav {
+    max-width: 100%;
+  }
+}
+
+/* 4. Fix phone layout */
+
+@media (max-width: 560px) {
+  .section-shell {
+    width: 100%;
+    max-width: 100%;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .hero {
+    width: 100%;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+    padding: 42px 16px;
+  }
+
+  .hero-copy,
+  .hero-visual {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .hero h1 {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+
+  .hero-copy p {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+
+  .terminal-card {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin: 0;
+  }
+
+  .terminal-body {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  /* Intro strip: use the available width */
+
+  .intro-strip {
+    width: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin: 0;
+  }
+
+  .intro-strip > div {
+    width: 100%;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  /* Cards must never force the page wider */
+
+  .about-grid,
+  .featured-project-grid,
+  .project-grid,
+  .cert-feature-grid,
+  .cert-grid,
+  .achievement-grid,
+  .education-grid,
+  .contact-section {
+    width: 100%;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .featured-project {
+    width: 100%;
+    min-width: 0;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .featured-art {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .featured-copy,
+  .project-card,
+  .about-card,
+  .skills-card,
+  .cert-card,
+  .achievement-card,
+  .education-item,
+  .contact-main,
+  .contact-links {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .timeline-item,
+  .timeline-card,
+  .learning-card,
+  .ctf-panel {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .timeline-card {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ctf-panel {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* Avoid oversized buttons */
+
+  .hero .button,
+  .hero a {
+    max-width: 100%;
+  }
+
+  .footer-inner {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+/* 5. Extra-small phones */
+
+@media (max-width: 380px) {
+  .nav-wrap {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .brand-name {
+    max-width: 90px;
+  }
+
+  .intro-strip,
+  .cert-feature-grid,
+  .cert-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hero {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .section-shell {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}
+
+/* END FINAL MOBILE FIX */
